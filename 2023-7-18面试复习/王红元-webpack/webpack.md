@@ -22,13 +22,13 @@
 
 10.postcss-loader是为了转换样式（prefix）
 
-11.browserslist 是通过 caniuse网站来查找 浏览器符合条件的版本
+11.browserslist 是通过 Can I Use 网站来查找 浏览器符合条件的版本
 
 ## 第三章
 
 12.postcss-preset-env 是处理postcss的插件
 
-13.css-loader的importloaders的作用是，当在css中遇到@imort重新使用postcss-loader
+13.css-loader的importloaderss属性的作用是，当在css中遇到@imort重新使用postcss-loader
 
 14.less-loader 的javascriptEnabled改为true 是针对 antd对less的报错
 
@@ -83,7 +83,7 @@ url-loader options: {
 
 27.eval函数是因为能在最后加mapping的注释，能够映射
 
-28.devtool: none, false 是production ， cheap-module-sourcemap和sourcewmap 是 developmentr
+28.devtool: none, false 是production ， cheap-module-sourcemap和sourcewmap 是 development
 
 29.no-resourece-source-map 是没有# mappingurl
 
@@ -110,7 +110,7 @@ url-loader options: {
 
  38.npx 执行的都是 node_modules下的bin里的命令
 
- 39. eslint ：{
+ 39.eslint ：{
    env: {},
    parserOptions:{},
    rules:{},
@@ -119,10 +119,226 @@ url-loader options: {
 
  ## 第九章
 
+40.HMR优势，模块级的替换，不用刷新页面，对比（webpack --watch）
 
+41.热更新需要指定监听哪些模块，框架实现 vue（vue-loader） react(react-refresh)
 
+42.webpack-dev-server创建了两个服务 express（内存种存放静态文件）、scoket（推送信息到浏览器）
 
+## 第十章
 
- 
+43.output:{
+  publicPath: './' // 为了使打包出来的文件引用相对路径而不是绝对路径 ./build/bundle.js
+}
 
+44.devserver和output的 publicPath 一般是一样的
+
+45.dev-server配置
+```javascript
+devserver:{
+  proxy:{
+    '/api' :{
+      target: 'http://',
+      changeOrigin: true
+    }
+  } // 解决跨域问题
+}
+```
+
+46.webpack使用require('http-proxy-middleware')来完成proxy
+
+47.刷新路由，返回404的解决方案， 生产环境要配置nginx（如果找不到当前页面返回index.html）。开发环境 proxy: {
+  historyApiFallback: true
+}
+
+48.resolve: {
+  extensions: ['.js', 'tsx'],
+  alias: {
+
+  }
+}
+
+## 第十一章
+
+49.cross-env的作用:cross-env 能够提供一个设置环境变量的scripts，这样我们就能够以unix方式设置环境变量，然而在windows上也能够兼容的。
+
+50.optimization:{
+  splitChunks: {
+    chunks: 'all',
+    name: 'development',
+  }
+}react 默认值
+
+51.chunk.js 是异步加载build， bundle.js是同步加载build
+
+## 第十二章
+
+52.通过魔法注释来给异步打的包取名字， 路由的懒加载也是一样的原理， 再点击后才下载element.js
+```
+button.addEventListener("click", ()=>{
+  import(/* webpackChunkName: 'element' */'./element').then({default: element}) => {
+    document.body.appendChild(element)
+  }
+}) 
+```
+53.runtimechunk 导入，解析等运行时代码分包
+
+54.CDN：content Delivery Network 源节点 -> 父节点 -> 边缘节点 -> 用户
+
+55.script defer='defer' 资源会下载，但会等js解析后，才会执行
+
+56.process.env 里所有的值都是 string 类型
+
+57.[hash]: 所有文件都变, [chunkhash] 模块统一变， js改了， css也变, [contenthash] 文件内容不改就不会变
+
+## 第十三章
+
+58.DLL：Dynamic Link Library 是软件在windows上实现共享函数库的一种方式
+
+59.Teser 进行 压缩
+
+60.Tree Shaking
+
+## 第十四章
+
+61.HTTP压缩 accept gzip const CompressionPlugin = require('compression-webpack-plugin')
+
+62.直接 npm run build， 方便npm publish。挂载信息到window
+
+```
+module.exports = {
+  entry: './src/index.js',
+  output: {
+    filename: '[contentHash:6][ext]',
+    path: path.resolve(__dirname, './build'),
+    libraryTarget: 'umd'，
+    library: 'why'
+  }
+} 
+```
+
+## 第十五章
+
+63.webpack 包分析 运用插件webpack-bundle-analyzer vite包分析也可以用
+
+64.const complier = webpack(config) complier.run((err, stats)=>{}) t08-cli
+
+65.自定义插件实现自己的apply
+
+66.this.hooks.beforeCompile.tap(()=>{
+  // 将函数放入map， 等call的时候执行
+})
+
+## 第十六章
+
+67.webpack源码：webpack-cli判断 安装包 -> 注册 option为plugin -> this.hooks.call ()
+
+68.自定义loader，传入参数为 content（模块内容） NormalLoader，PitchLoader。 返回内容 this.callback && this.async 
+获取options this.getOption()（库 loader-utils）
+
+69.自定义loader
+```
+module.exports = function (content){
+  console.log(content, '执行了normalLoader')
+} // 执行顺序从右到左
+
+module.exports.pitch = function (content){
+  console.log(content, '执行了pitchLoader')
+} // 执行顺序从左到右
+```
+
+## 第十七章
+
+70.plugin hook， new SyncHook()（require('tapable')） this.hook.call 调用， this.hook.tap 定义
+
+71.自定义plugin
+```
+  class CustomPlugin {
+    apply (complier){
+      complier.hooks.afterEmit.tapAsync('CustomPlugin', (compilation, callback)=>{
+        console.log('执行了自定义plugin')
+        callback();
+      })
+    }
+  }
+
+  module.exports = CustomPlugin
+```
+
+72.const names = [undefined, false, 'abc', ''].filter(Boolean)
+
+73.webpack常用配置
+```
+webpackConfig = {
+  entry: './src/main.ts',
+  output: {
+    path: path.resolve(__dirname, './build'),
+    filename: 'bundle.js'
+  }
+  resolve: {
+    extensions: ['.js', 'tsx'],
+    modules: ['node_modules'],
+    alias: {
+      '@': './src'
+    }
+  }
+  module: {
+    rules: [{
+      test: '/.less/',
+      use: [
+        'style-loader',
+        'css-loader',
+        'postCss-loader',
+        'less-loader' // 通过content，返回新的js 模块
+      ]
+    }]
+  }
+  plugins: [
+    new HtmlWebpackPlugin(), // 实现apply
+    new DefinePlugin(),
+    new ReactRefreshPlugin(),
+    new WebpackBundleAnalyzer()
+  ]
+}
+```
+
+## 第十八章
+
+74.vue-cli-service  configureWebpack chainWebpack
+
+75.gulp 是一系列 task执行任务， rollup 是一个模块化打包工具
+
+## 第十九章
+
+76.rollup 优势打包多种格式
+```
+output：[{
+  format: 'umd',
+  name: 't08Utils',
+  file: 'dist/t08.umd.js'
+},{
+  format: 'es',
+  name: 't08Utils',
+  file: 'dist/t08.es.js'
+},{
+  format: 'cjs',
+  name: 't08Utils',
+  file: 'dist/t08.commonjs.js'
+}]
+
+```
+
+77.rollup 默认只支持 es模块化
+
+## 第二十章
+
+78.rollup --environment ENV:development process.ENV === 'development'
+
+79.vite 将 ts、less的请求，编译成 es的js文件，从而直接被浏览器使用
+
+80.vite 打包速度快是因为 pre-build 将 devDependencies 里的包打包放到了node_module下的.vite里
+
+81.vite 编译快是因为 使用esbuild，直接转换成 机器代码不用转化成ast
+
+82.esbuild 平替 babel
 
