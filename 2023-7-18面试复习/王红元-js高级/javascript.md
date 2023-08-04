@@ -160,3 +160,55 @@
 35.instanceof 右侧是 构造**函数**
 
 36.prototype是一个包含constructor: foo 的对象, 所以__proto__ === Object.prototype
+
+## 第十一章
+
+37.寄生组合式继承
+```
+function inheritPrototype(SubType, SuperType) {
+  SubType.prototype = Objec.create(SuperType.prototype)
+  Object.defineProperty(SubType.prototype, "constructor", {
+    enumerable: false,
+    configurable: true,
+    writable: true,
+    value: SubType
+  })
+}
+
+function Person(name, age, friends) {
+  this.name = name
+  this.age = age
+  this.friends = friends
+}
+
+function Student(name, age, friends, sno, score) {
+  Person.call(this, name, age, friends)
+  this.sno = sno
+  this.score = score
+}
+
+inheritPrototype(Student, Person)
+```
+
+## 第十二章
+
+38.let p = new Car() p instanceof Car
+
+39.Object.create(), 创建原型对象
+```
+Rectangle.prototype = Object.create(Shape.prototype, {
+  // 如果不将 Rectangle.prototype.constructor 设置为 Rectangle，
+  // 它将采用 Shape（父类）的 prototype.constructor。
+  // 为避免这种情况，我们将 prototype.constructor 设置为 Rectangle（子类）。
+  constructor: {
+    value: Rectangle,
+    enumerable: false,
+    writable: true,
+    configurable: true,
+  },
+});
+```
+
+## 第十三章
+
+40.

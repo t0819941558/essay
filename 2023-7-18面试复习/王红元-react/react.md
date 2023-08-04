@@ -42,4 +42,4 @@
 
 5.null、undefined、boolean 在JSX 中不展示
 
-6.
+6.对象类型不能作为JSX子元素 <h2>{{aaa: '111'}}</h2> (not valid as a react child)

@@ -1,23 +1,16 @@
-let obj = {};
+class Person {
+  constructor() {
+
+  }
+
+  static eating() {
+    console.log('eating')
+  }
+
+  running() {
+    console.log('running')
+  }
+}
 
 
-Object.defineProperty(obj, 'readOnlyProp', {
-
-  value: 'This property is read only',
-
-  writable: false,
-
-  enumerable: true,
-
-  configurable: false
-
-});
-
-console.log(obj)
-
-Object.defineProperty(obj, 'readOnlyProp', {
-
-  value: 'Thi222',
-
-});
-
+let aaa = new Person()
