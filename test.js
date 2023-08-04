@@ -1,16 +1,5 @@
-class Person {
-  constructor() {
-
-  }
-
-  static eating() {
-    console.log('eating')
-  }
-
-  running() {
-    console.log('running')
-  }
+var sss = 123
+if (true) {
+  console.log(sss)
+  let sss = 444
 }
-
-
-let aaa = new Person()

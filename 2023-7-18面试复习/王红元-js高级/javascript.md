@@ -211,4 +211,7 @@ Rectangle.prototype = Object.create(Shape.prototype, {
 
 ## 第十三章
 
-40.
+
+## 第十五章
+
+40.foo`Hello${name}Wo${age}rld`标签魔板字符串
