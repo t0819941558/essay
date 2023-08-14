@@ -17,3 +17,52 @@
 8.Math.random伴随着Math.floor
 
 9.array.sort() 默认返回a.charCodeAt 和 b.charCodeAt
+
+10.Commonjs和ESModule的区别
+  * 写法不一样 module.exports 和 export
+  * import 在静态编译期就确定代码
+  * import 是值的引用, require是值的复制
+  * import 导出模块不能重新定义(值的引用)
+  * import 不可以写在函数体里
+
+11.JSONP
+```
+// 1.通过script标签 src请求跨域
+// 2.将请求函数名传入后端, 后端返回函数包裹的data
+$ curl https://shanyue.tech/api/user?id=100&callback=padding
+
+padding({
+  "id": 100,
+  "name": "shanyue",
+  "wechat": "xxxxx",
+  "phone": "183xxxxxxxx"
+})
+```
+
+12.script defer和 async
+
+*正常script标签阻塞html解析*
+
+![Alt](https://img-blog.csdnimg.cn/img_convert/1b7fb0ea577b9b34f5482bdcfb35f99f.png)
+
+**defer**
+![Alt](https://img-blog.csdnimg.cn/img_convert/2008bbc71a37d973f84d52a9b5cd0205.png)
+
+**async**
+![Alt](https://img-blog.csdnimg.cn/img_convert/43bc493bc2c57d819f7315d84ad5363c.png)
+
+13.parseInt(string, radix): radix是指定string的进制.string.toString(16)
+
+14.unicode和utf编码格式: 码点->编号 码元 -> 确定一个字符的最小单元
+
+15.浮点数的存储:符号位S(1位)指数位E(11位)有效位M(52位)
+
+16.js 基础类型在计算机中存储为8个字节
+
+17.js小数部位使用乘2取整法, 化为科学记数法, 然后存储
+
+符号位:1是负数,0是非负数
+
+指数位:11位中位数是1023 因为有负数
+
+有效位:科学记数法的有效值, 后面补零

@@ -1,0 +1,23 @@
+{
+  "name": "essay",
+  "version": "1.0.0",
+  "description": "",
+  "main": "test.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/t0819941558/essay.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/t0819941558/essay/issues"
+  },
+  "homepage": "https://github.com/t0819941558/essay#readme",
+  "dependencies": {
+    "axios": "^1.4.0"
+  }
+}

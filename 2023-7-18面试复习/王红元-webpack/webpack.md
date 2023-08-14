@@ -185,7 +185,7 @@ button.addEventListener("click", ()=>{
 
 54.CDN：content Delivery Network 源节点 -> 父节点 -> 边缘节点 -> 用户
 
-55.script defer='defer' 资源会下载，但会等js解析后，才会执行
+55.script defer='defer' 资源会下载，但会等html解析后，才会执行
 
 56.process.env 里所有的值都是 string 类型
 
@@ -195,9 +195,9 @@ button.addEventListener("click", ()=>{
 
 58.DLL：Dynamic Link Library 是软件在windows上实现共享函数库的一种方式
 
-59.Teser 进行 压缩
+59.Teser // 进行压缩
 
-60.Tree Shaking
+60.Tree Shaking // 去除没有引用的代码
 
 ## 第十四章
 
@@ -297,7 +297,8 @@ webpackConfig = {
     new HtmlWebpackPlugin(), // 实现apply
     new DefinePlugin(),
     new ReactRefreshPlugin(),
-    new WebpackBundleAnalyzer()
+    new WebpackBundleAnalyzer(),
+    new ProvidePlugin();
   ]
 }
 ```
