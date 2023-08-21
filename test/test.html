@@ -18,8 +18,39 @@
 </script> -->
 
 <script type="module" defer>
-  console.log(aaa)
-  import { aaa } from 'http://127.0.0.1:5500/test3.js'
+  // console.log(aaa)
+  // import { aaa } from 'http://127.0.0.1:5500/test3.js'
   // import bbb from 'http://127.0.0.1:5500/test3.js'
 
+  var removeDuplicates = function(nums) {
+    let length = nums.length;
+
+    if (length === 0){
+        return 0
+    }
+
+    let left = 1;
+    let right = 1;
+    while(right < length){
+        if (nums[right] !== nums[right - 1]){
+            nums[left] = nums[right];
+            left++;
+        } else if (nums[right] === nums[right - 1]){
+            if (nums[left] !== nums[left - 2] ){
+                nums[left] = nums[right];
+                left++;
+            }
+        }
+
+        right++;
+    }
+
+    return left
+};
+
+var nums =[0,0,1,1,1,1,2,3,3]
+
+
+console.log( removeDuplicates(nums))
+console.log(nums)
 </script>

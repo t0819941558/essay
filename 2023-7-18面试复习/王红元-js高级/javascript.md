@@ -441,3 +441,5 @@ const objProxy = new Proxy(obj, {
 83.函数参数如果有默认值,会有函数参数作用域
 
 84.函数参数,函数,变量变量提升, 函数 > 参数 > 变量
+
+85.span.addEventListener('click', ()=>{} , true) // true是事件捕获， 默认事件冒泡
