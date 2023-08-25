@@ -14,6 +14,7 @@
             };
         }
 
+        // render函数, 函数组件是return
         render() {
             return (
                 <div>
@@ -26,6 +27,7 @@
         }
 
         btnClick() {
+            // this.setState 1.继承自component 2.message值改掉 3.自动重新执行render函数
             // this.state.message = 'hello react'
             this.setState({
                 message: 'hello react'
@@ -43,3 +45,9 @@
 5.null、undefined、boolean 在JSX 中不展示
 
 6.对象类型不能作为JSX子元素 <h2>{{aaa: '111'}}</h2> (not valid as a react child)
+
+7.通过type='text/babel'表示为JSX
+
+8.调用this.setState会触发render
+
+9.PWA 在安卓端像app一样的展示应用程序(Progressive Web App) 通过 App Manifest,serviceWorker来完成安装和离线功能

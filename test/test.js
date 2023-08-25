@@ -1,11 +1,26 @@
+function bar(amount, count) {
+  const res = new Array(count).fill(0.01);
 
-console.log(111)
+  const reamin = amount - count * 0.01;
 
-module.exports = {
-  ccc: 333,
-  aaa: 111,
+  const quan = [];
+  let all = 0;
+
+  for (let i = 0; i < count; ++i) {
+    const random = Math.floor(Math.random() * 100);
+    quan.push(random);
+    all += random;
+  }
+  let last = reamin;
+
+  for (let j = 0; j < count - 1; ++j) {
+    res[j] = Number(parseFloat(quan[j] / all * reamin).toFixed(2));
+    last -= res[j]
+  }
+  res[count - 1] = Number(last.toFixed(2));
+
+  return res
 }
 
-exports.name = 222
-
-var bbb = require('./test2.js')
+const res = bar(10, 4)
+console.log(res)
